@@ -1,95 +1,124 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
 
-export default function Home() {
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import * as React from "react";
+import { Zukan, zukanList } from "@/datas/zukan-list";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+
+const Page = () => {
+  const [age, setAge] = React.useState("");
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value as string);
+  };
+
+  const hoge: Zukan[] = zukanList;
+
+  const zukanMenuList = (): React.JSX.Element[] =>
+    zukanList.map((zukan) => (
+      <MenuItem key={zukan.id} value={zukan.id}>
+        {zukan.name}
+      </MenuItem>
+    ));
+
+  const zukanMenuListOPTION = (): React.JSX.Element[] =>
+    zukanList.map((zukan) => (
+      <option key={zukan.id} value={zukan.id}>
+        {zukan.name}
+      </option>
+    ));
+
+  const makeLabelFromZukanList = () => {
+    return zukanList.map((x) => {
+      return { label: x.name, value: x.id };
+    });
+  };
+
+  const autocompleteChange = (
+    x: React.SyntheticEvent<Element, Event>,
+    newValue: { label: string; value: string } | null
+  ) => {
+    console.log("<<<autocompleteChange>>>");
+    console.log(x);
+    console.log(newValue);
+  };
+
+  const autocompleteSelect = (x: React.SyntheticEvent<HTMLDivElement, Event>) => {
+    // console.log("`<<<autocompleteSelect>>>`");
+    // console.log(x.target);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <FormControl size="small">
+        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Age"
+          onChange={handleChange}
         >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+          {zukanMenuList()}
+        </Select>
+      </FormControl>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+      {/* ネイティブ↓↓ */}
+      <FormControl size="small">
+        <Select native value={age} onChange={handleChange}>
+          {zukanMenuListOPTION()}
+        </Select>
+      </FormControl>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={makeLabelFromZukanList()}
+        sx={{ width: 300 }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="１匹目XX"
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: params.inputProps.value !== "" && (
+                <>
+                  {console.log(typeof params.inputProps.value)}
+                  {console.log("~~~~~~~~~")}
+                  {console.log(params.inputProps.value)}
+                  {console.log("----------")}
+                  {console.log(params)}
+                  {console.log("----------")}
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+                  <InputAdornment position="start" disableTypography={true}>
+                    {/* TODO：対応した画像を取得する */}
+                    <img alt="" src={`/pokemon/icon${params.inputProps.value}_f00_s0.png`} />
+                  </InputAdornment>
+                </>
+              ),
+            }}
+          />
+        )}
+        renderOption={(props, option) => (
+          <li {...props} key={option.value}>
+            {/* TODO：対応した画像を取得する */}
+
+            <InputAdornment position="start" disableTypography={true}>
+              <img alt="" src={`/pokemon/icon${option.value}_f00_s0.png`} style={{ height: 35 }} />
+            </InputAdornment>
+            {option.label}
+          </li>
+        )}
+        onChange={(x, newValue) => autocompleteChange(x, newValue)}
+        onSelect={(y) => autocompleteSelect(y)}
+      />
+    </>
+  );
+};
+
+export default Page;
