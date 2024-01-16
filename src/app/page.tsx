@@ -226,7 +226,7 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    console.log("キー変わった実行されました！-");
+    console.log("キー変わった！-");
 
     console.log("^-^");
 
@@ -234,7 +234,7 @@ const Page = () => {
       getPDetails(latestSingleKeys.cId, latestSingleKeys.unixTime);
     }
 
-    // ※各ルールの検索用のキーが拾える！！
+    // ※各ルールの検索用のキーが拾える
     console.log("キー変わった！");
   }, [latestSingleKeys.cId, latestSingleKeys.unixTime]);
 
@@ -343,8 +343,10 @@ const Page = () => {
     if (zukan === null) {
       return undefined;
     }
-    return singlePdetailList.find(
-      (pdet) => pdet.pokemonIdx === parseInt(zukan.id) && pdet.sugataIdx === parseInt(zukan.sugata ?? "0")
+    return (
+      singlePdetailList.find(
+        (pdet) => pdet.pokemonIdx === parseInt(zukan.id) && pdet.sugataIdx === parseInt(zukan.sugata ?? "0")
+      ) ?? { pokemonIdx: 1234, sugataIdx: 0, motimonoList: [] } //NOTE:これいる？
     );
   };
   const getKeyFromName = (pokeName: string): string => {

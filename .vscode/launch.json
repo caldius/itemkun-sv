@@ -1,0 +1,30 @@
+{
+  // IntelliSense を使用して利用可能な属性を学べます。
+  // 既存の属性の説明をホバーして表示します。
+  // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js サーバサイド用のデバッガ設定",
+      "type": "node",
+      "request": "attach",
+      "skipFiles": ["<node_internals>/**"],
+      //   "program": "${workspaceFolder}/components/layout.tsx",
+      //   "outFiles": ["${workspaceFolder}/**/*.js"]
+      "port": 9229
+    },
+    {
+      "name": "Next.js クライアントサイド用のデバッガ設定",
+      "type": "chrome",
+      "request": "launch",
+
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMapPathOverrides": { "webpack://_N_E/*": "${webRoot}/*" },
+      //   "program": "${workspaceFolder}/components/layout.tsx",
+      "outFiles": ["${workspaceFolder}/**/*.js"]
+    }
+  ]
+}
