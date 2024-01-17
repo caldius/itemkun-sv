@@ -401,7 +401,7 @@ const Page = () => {
                         {/* TODO：選択したポケモンに対応した画像を取得する */}
                         <img
                           alt=""
-                          src={`/pokemon/icon${getKeyFromName(params.inputProps.value as string)}_s0.png`}
+                          src={`./pokemon/icon${getKeyFromName(params.inputProps.value as string)}_s0.png`}
                           style={{ height: 35 }}
                         />
                       </InputAdornment>
@@ -416,7 +416,7 @@ const Page = () => {
 
                     <img
                       alt=""
-                      src={`/pokemon/icon${option.id}_f${option.sugata ?? "00"}_s0.png`}
+                      src={`./pokemon/icon${option.id}_f${option.sugata ?? "00"}_s0.png`}
                       style={{ height: 35 }}
                       key={`${option.id}-{${option.sugata ?? "00"}}`}
                     />
