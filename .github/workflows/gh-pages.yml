@@ -36,7 +36,8 @@ jobs:
       # プロジェクトルート直下に.nextディレクトリができる
       - name: build
         run: npm run build
-
+        env:
+          URL_PREFIX: itemkun-sv
       # 静的なHTMLとしてNext.jsアプリを生成する
       # プロジェクトルート直下にoutディレクトリができる
       # そのなかに、HTMLファイル群と、それらが読み込むJSファイル群を収めた_nextディレクトリがある
