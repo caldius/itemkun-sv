@@ -36,7 +36,7 @@ export type searchKeyType = { cId: string; unixTime: string };
 export type SmallZukan = { id: number; sugata: number };
 
 /**
- *  #### ステート制御用の型定義
+ *  #### ステート制御用の型定義x
  * - 初期状態="DEFAULT" 要検索処理="SHOULD_CALCULATE" 検索完了="CALCULATED"の区分値文字列
  */
 type calculateStatus = "DEFAULT" | "SHOULD_CALCULATE" | "CALCULATED";
