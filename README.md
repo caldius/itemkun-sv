@@ -1,3 +1,12 @@
+## 備忘録
+
+- 現状SVシングル用
+
+- ソースを変更すると自動デプロイされるhttps://caldius.github.io/itemkun-sv/
+
+
+↓以下テンプレ
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
